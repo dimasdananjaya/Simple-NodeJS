@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 //use path module
 const path = require("path");
-//use hbs view engine
+//use ejs view engine
 const hbs = require("hbs");
 //use bodyParser middleware
 const bodyParser = require("body-parser");
