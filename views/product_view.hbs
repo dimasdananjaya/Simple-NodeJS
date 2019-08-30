@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Add icon library -->
+    <script src="https://kit.fontawesome.com/4f161c1c95.js"></script>
+
+    <!--custom css-->
+    <link rel="stylesheet" href="/public/style.css">
+
+    <!-- $ is not defined, try put this jquery in head not bottom html-->
+    <script src="/public/jquery/jquery.min.js"></script>
+
+    <title>Manage Product Data</title>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Start Bootstrap</div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <h3 style="padding-top: 20px;">Products Data Table</h3>
+                <hr>
+                <button style="margin-bottom: 20px;" class="btn btn-success" data-toggle="modal"
+                    data-target="#addProductModal"><i class="fas fa-plus">Add Product</i></button>
+                <!--modal add product-->
+                <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    <p>New Product</p>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/save" method="post">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Product Name:</label>
+                                        <input type="text" class="form-control" name="product_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Product Price:</label>
+                                        <input type="number" class="form-control" name="product_price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Product Description:</label>
+                                        <textarea class="form-control" name="product_desc"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal add product-->
+
+                <table class="table table-striped" id="product_table">
+                    <caption>List of Product</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Product ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Product Description</th>
+                            <th scope="col" id="rupiah">Product Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each results}}
+                        <tr>
+                            <td>{{ id_product }}</td>
+                            <td>{{ product_name }}</td>
+                            <td style="width: 30%">{{ product_desc }}</td>
+                            <td>{{ product_price }}</td>
+                            <td>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-info edit"
+                                    data-id="{{ id_product }}" data-product_name="{{ product_name }}"
+                                    data-product_price="{{ product_price }}"
+                                    data-product_desc="{{ product_desc }}">Edit</a>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-danger delete"
+                                    data-id="{{ id_product }}">Delete</a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+                <!-- Modal Update Product-->
+                <form action="/update" method="post">
+                    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="text" name="product_name" class="form-control product_name"
+                                            placeholder="Product Name" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <input type="number" id="rupiah" name="product_price"
+                                            class="form-control product_price" placeholder="Product Price" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" name="product_desc" class="form-control product_desc"
+                                            placeholder="Product Desc" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="id_product" class="id_product">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end product-->
+
+                <!-- Modal Delete Product-->
+                <form id="add-row-form" action="/delete" method="post">
+                    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Delete Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong>Are you sure to delete this data?</strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="id_product" class="form-control product_id2" required>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            //showing data to edit modal      
+            $('#product_table').on('click', '.edit', function () {
+                var id_product = $(this).data('id'); //id ini maksudnya apa? liat di button edit / delete ada data-idnya
+                var product_name = $(this).data('product_name'); //ini classnya
+                var product_price = $(this).data('product_price');
+                var product_desc = $(this).data('product_desc');
+                $('#EditModal').modal('show');
+                $('.product_name').val(product_name); //ini value untuk classnya
+                $('.product_price').val(product_price);
+                $('.product_desc').val(product_desc);
+                $('.id_product').val(id_product);
+            });
+            //showing delete record modal
+            $('#product_table').on('click', '.delete', function () {
+                var id1 = $(this).data('id'); //var ini dipake dimana ya? //samakan var dengan val dibawah
+                $('#DeleteModal').modal('show');
+                $('.product_id2').val(id1);
+            });
+        });
+
+
+        //currency
+
+    </script>
+</body>
+
+</html>
