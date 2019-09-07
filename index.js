@@ -15,7 +15,8 @@ const database = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "simplenodemysql"
+  database: "simplenodemysql",
+  multipleStatements: true
 });
 
 //Connect
@@ -34,6 +35,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //set public folder as static folder for static file
 app.use("/public", express.static(__dirname + "/public"));
+
+//////////////// ROUTING ///////////////////////////////////////////////////////////
 
 //route for home page
 app.get("/home", (req, res) => {
@@ -57,6 +60,65 @@ app.get("/user_product", (req, res) => {
   });
 });
 
+//ini untuk foreach kalau mau 2 tabel dalam 1 page pakai array dan multiplestatement (liat atas)
+app.get("/manage_users", (req, res) => {
+  let sql = "select * from users";
+  let query = database.query(sql, (err, results) => {
+    if (err) throw err;
+    res.render("manage_users", {
+      data_user: results
+      //data_produk: results[1]
+    });
+  });
+});
+
+//////////////// END ROUTING ///////////////////////////////////////////////////////////
+//route for insert new user
+
+app.post("/save_user", (req, res) => {
+  let data = {
+    username: req.body.username,
+    password: req.body.password,
+    role: req.body.role,
+    status: "active"
+  };
+
+  let sql = "INSERT INTO users SET?";
+  let query = database.query(sql, data, (err, results) => {
+    if (err) throw err;
+    res.redirect("/manage_users");
+  });
+});
+
+//route for update user data
+app.post("/update_user", (req, res) => {
+  let sql =
+    "UPDATE users SET username='" +
+    req.body.username +
+    "', password='" +
+    req.body.password +
+    "', role='" +
+    req.body.role +
+    "', status='" +
+    req.body.status +
+    "' WHERE id_user=" +
+    req.body.id_user;
+  let query = database.query(sql, (err, results) => {
+    if (err) throw err;
+    res.redirect("/manage_users");
+  });
+});
+
+//route for delete data users
+app.post("/delete_user", (req, res) => {
+  let sql = "DELETE FROM users WHERE id_user=" + req.body.id_user;
+  let query = database.query(sql, (err, results) => {
+    if (err) throw err;
+    res.redirect("/manage_users");
+  });
+});
+
+//////////////// CRUD PRODUCT ///////////////////////////////////////////////////////////
 //route for insert product data
 app.post("/save", (req, res) => {
   let data = {
@@ -100,6 +162,12 @@ app.post("/delete", (req, res) => {
 app.listen("3000", () => {
   console.log("Server Started On Port 3000");
 });
+
+//////////////// END CRUD PRODUCT ///////////////////////////////////////////////////////////
+
+//////////////// CRUD USERS ///////////////////////////////////////////////////////////
+
+//////////////// END CRUD PRODUCT ///////////////////////////////////////////////////////////
 
 /**ignore
 
