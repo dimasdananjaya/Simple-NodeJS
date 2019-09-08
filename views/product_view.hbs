@@ -4,10 +4,6 @@
 <head>
 
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -21,6 +17,9 @@
 
     <!-- $ is not defined, try put this jquery in head not bottom html-->
     <script src="/public/jquery/jquery.min.js"></script>
+
+    <!--datatables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
     <title>Manage Product Data</title>
 </head>
@@ -109,7 +108,7 @@
                 </div>
                 <!--end modal add product-->
 
-                <table class="table table-striped" id="product_table">
+                <table class="table table-hover table-sm table-striped" id="product_table">
                     <caption>List of Product</caption>
                     <thead>
                         <tr>
@@ -228,7 +227,9 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-
+    <!--DATATABLES CSS-->
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -253,7 +254,10 @@
         });
 
 
-        //currency
+        //datatables
+        $(document).ready(function () {
+            $('#product_table').DataTable();
+        });
 
     </script>
 </body>

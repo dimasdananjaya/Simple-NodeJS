@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Bootstrap CSS -->
+    <!--BS 4-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -21,6 +21,11 @@
 
     <!-- $ is not defined, try put this jquery in head not bottom html-->
     <script src="/public/jquery/jquery.min.js"></script>
+
+    <!--datatables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+
+
 
     <title>Manage Product Data</title>
 </head>
@@ -115,7 +120,7 @@
                 </div>
                 <!--end modal add user-->
 
-                <table class="table table-striped" id="user_table">
+                <table class="table table-hover table-sm table-striped" id="user_table">
                     <caption>List of Users</caption>
                     <thead>
                         <tr>
@@ -237,6 +242,8 @@
     </div>
     <!-- /#wrapper -->
 
+
+
     <!-- Menu Toggle Script -->
     <script>
         $("#menu-toggle").click(function (e) {
@@ -256,7 +263,9 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-
+    <!--DATATABLES CSS-->
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -283,7 +292,11 @@
         });
 
 
-        //currency
+        //datatables
+        $(document).ready(function () {
+            $('#user_table').DataTable();
+        });
+
 
     </script>
 </body>
