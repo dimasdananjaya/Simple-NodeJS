@@ -1,6 +1,6 @@
 body {
-  font-family: "Raleway", sans-serif;
   overflow-x: hidden;
+  font-family: "Raleway", sans-serif;
 }
 
 #sidebar-wrapper {
@@ -42,4 +42,57 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+/** NAVBAR*/
+
+.navbar {
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.nav-link {
+  padding-right: 0.5rem !important;
+  padding-left: 0.5rem !important;
+}
+
+/* Fixes dropdown menus placed on the right side */
+.ml-auto .dropdown-menu {
+  left: auto !important;
+  right: 0px;
+}
+
+/** BANNER SECTION*/
+#banner {
+  background-image: url("/public/assets/banner.jpg");
+  z-index: 1;
+  margin: 0 auto;
+  display: block;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  width: 100%;
+  height: 400px;
+}
+
+#banner h1,
+p {
+  text-align: center;
+  padding: 0 auto;
+  color: #fff;
+  padding-top: 1.5%;
+}
+
+/** PRODUCT SECTION */
+
+.card {
+  border: none;
+  margin-top: 1%;
 }
